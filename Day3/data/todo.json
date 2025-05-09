@@ -1,0 +1,18 @@
+[
+  {
+    "task": "Learn Python",
+    "done": true
+  },
+  {
+    "task": "Learn Django",
+    "done": false
+  },
+  {
+    "task": "rest API",
+    "done": true
+  },
+  {
+    "task": "Python-Django",
+    "done": false
+  }
+]
