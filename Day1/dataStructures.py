@@ -87,7 +87,7 @@ print("list", x)
 
 y = [item[1] for item in family if item[1] > 10]
 
-print(y)
+print("List Comprehension:", y)
 
 
 # stacks LIFO
@@ -156,7 +156,7 @@ print(fav_sport.get("Volleyball"))
 # dict comprehension
 
 value = {x: x*2 for x in range(5)}
-print(value)
+print("dict comprehension", value)
 
 tuple_value = [x*2 for x in range(5)]
 
@@ -179,3 +179,8 @@ sorted_value = sorted(Highest_char.items(),
                       key=lambda char: char[1], reverse=True)
 
 print(sorted_value)
+
+
+a = [x*x for x in range(5)]
+
+print("List comprehension:", a)
