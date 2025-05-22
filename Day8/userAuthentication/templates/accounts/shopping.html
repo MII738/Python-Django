@@ -1,0 +1,6 @@
+<h2>Welcome to Shopping Page</h2>
+<p>Hello, {{ request.user.username }}!</p>
+<form method="post" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form>

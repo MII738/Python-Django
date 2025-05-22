@@ -1,0 +1,8 @@
+<h2>Thank you! Your message has been submitted.</h2>
+
+<div>
+    <form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+  </div>
