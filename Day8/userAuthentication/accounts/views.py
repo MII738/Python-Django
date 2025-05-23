@@ -37,7 +37,7 @@ def signup_view(request):
             messages.error(request, "User already exists. Please login.")
             return redirect('login')
 
-        # Create the user
+       
         User.objects.create_user(username=username, password=password)
         messages.success(request, "User created successfully. Please login.")
         return redirect('login')
@@ -46,7 +46,7 @@ def signup_view(request):
 
 
 def shopping_view(request):
-    # This view requires login. So check:
+   
     if not request.user.is_authenticated:
         return redirect('login')
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/@mui/material@5.0.0-alpha.40/dist/material.min.css" rel="stylesheet">
+</head>
+<body>
+  <div style="padding: 40px;">
+    <h2>{{ form.instance.pk|yesno:"Update Employee,Add Employee" }}</h2>
+    <form method="post">
+      {% csrf_token %}
+      <table class="mui-table">
+        {{ form.as_table }}
+      </table>
+      <button type="submit" class="mui-btn mui-btn--primary">Save</button>
+      <a href="{% url 'employee_list' %}" class="mui-btn">Cancel</a>
+    </form>
+  </div>
+</body>
+</html>

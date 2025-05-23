@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employees</title>
+  <link href="https://cdn.jsdelivr.net/npm/@mui/material@5.0.0-alpha.40/dist/material.min.css" rel="stylesheet">
+</head>
+<body>
+  <div style="padding: 40px;">
+    <h2>Employee List</h2>
+    <a href="{% url 'employee_create' %}" class="mui-btn mui-btn--raised mui-btn--primary">Add Employee</a>
+    <table class="mui-table mui-table--bordered" style="margin-top: 20px;">
+      <thead>
+        <tr>
+          <th>Name</th><th>Email</th><th>Department</th><th>Salary</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for emp in employees %}
+          <tr>
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.email }}</td>
+            <td>{{ emp.department }}</td>
+            <td>{{ emp.salary }}</td>
+            <td>
+              <a href="{% url 'employee_update' emp.pk %}" class="mui-btn">Edit</a>
+              <a href="{% url 'employee_delete' emp.pk %}" class="mui-btn mui-btn--danger">Delete</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="5">No employees</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
