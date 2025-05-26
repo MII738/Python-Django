@@ -1,36 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Employees</title>
-  <link href="https://cdn.jsdelivr.net/npm/@mui/material@5.0.0-alpha.40/dist/material.min.css" rel="stylesheet">
-</head>
-<body>
-  <div style="padding: 40px;">
-    <h2>Employee List</h2>
-    <a href="{% url 'employee_create' %}" class="mui-btn mui-btn--raised mui-btn--primary">Add Employee</a>
-    <table class="mui-table mui-table--bordered" style="margin-top: 20px;">
-      <thead>
-        <tr>
-          <th>Name</th><th>Email</th><th>Department</th><th>Salary</th><th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for emp in employees %}
-          <tr>
-            <td>{{ emp.name }}</td>
-            <td>{{ emp.email }}</td>
-            <td>{{ emp.department }}</td>
-            <td>{{ emp.salary }}</td>
-            <td>
-              <a href="{% url 'employee_update' emp.pk %}" class="mui-btn">Edit</a>
-              <a href="{% url 'employee_delete' emp.pk %}" class="mui-btn mui-btn--danger">Delete</a>
-            </td>
-          </tr>
-        {% empty %}
-          <tr><td colspan="5">No employees</td></tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<h2>Employee List</h2>
+<a href="{% url 'employee_create' %}" class="btn btn-success mb-2">Add New Employee</a>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Tags</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for emp in page_obj %}
+      <tr>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.email }}</td>
+        <td>
+          {% for tag in emp.tags.all %}
+            <span class="badge bg-primary">{{ tag.name }}</span>
+          {% endfor %}
+        </td>
+        <td>
+          <a href="{% url 'employee_update' emp.pk %}" class="btn btn-sm btn-info">Edit</a>
+          <a href="{% url 'employee_delete' emp.pk %}" class="btn btn-sm btn-danger">Delete</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-between">
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">Previous</a>
+  {% endif %}
+  <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">Next</a>
+  {% endif %}
+</div>
+{% endblock %}
