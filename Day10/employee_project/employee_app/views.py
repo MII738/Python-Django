@@ -3,14 +3,33 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from .models import Employee
 from .forms import EmployeeForm
+from django.db.models import Q
 
 
 def employee_list(request):
-    employees = Employee.objects.all().order_by('id')
+    search_query = request.GET.get('search', '')
+    sort_by = request.GET.get('sort', 'id')  # default sort by id
+
+    employees = Employee.objects.all()
+
+    if search_query:
+        employees = employees.filter(
+            Q(name__icontains=search_query) | Q(email__icontains=search_query)
+        )
+
+    if sort_by in ['name', '-name', 'email', '-email', 'id', '-id']:
+        employees = employees.order_by(sort_by)
+
     paginator = Paginator(employees, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'employee_app/employee_list.html', {'page_obj': page_obj})
+
+    context = {
+        'page_obj': page_obj,
+        'search_query': search_query,
+        'sort_by': sort_by,
+    }
+    return render(request, 'employee_app/employee_list.html', context)
 
 
 def employee_create(request):

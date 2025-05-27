@@ -40,4 +40,13 @@
     <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">Next</a>
   {% endif %}
 </div>
+<form method="get" style="margin-bottom: 20px;">
+  <input type="text" name="search" placeholder="Search..." value="{{ search_query }}">
+  <select name="sort">
+    <option value="name" {% if sort_by == "name" %}selected{% endif %}>Sort by Name ↑</option>
+    <option value="email" {% if sort_by == "email" %}selected{% endif %}>Sort by Email ↑</option>
+  </select>
+  <button type="submit">Apply</button>
+</form>
+
 {% endblock %}
